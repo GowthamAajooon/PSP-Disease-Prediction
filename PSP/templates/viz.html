@@ -1,0 +1,184 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <label for="yearCheckbox">Select Year:</label>
+    <select id="yearCheckbox" onchange="updateChart()">
+        {% for year in years %}
+            <option value="{{ year }}">{{ year }}</option>
+        {% endfor %}
+    </select>
+
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart;
+
+        function updateChart() {
+            var selectedYear = document.getElementById('yearCheckbox').value;
+
+            fetch('/get_chart_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'selected_year=' + selectedYear,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (myChart) {
+                    myChart.destroy();  // Destroy previous chart instance
+                }
+
+                myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: data.datasets,
+                    },
+                });
+            });
+        }
+
+        // Initialize the chart with the first year
+        updateChart();
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+<!-- viz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bar Chart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        table {
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        .flex-container {
+            flex: 1;
+            display: flex;
+        }
+
+        .flex-container-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to right, rgb(248, 3, 44) 1000%, rgb(255, 1, 44) 1050%);
+            padding: 20px;
+            overflow-y:auto ;
+        }
+
+        .flex-container-right {
+            flex: 1;
+            background: lightgoldenrodyellow;
+            padding: 20px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+    <body class="bg-light">
+        <div class="flex-container">            
+                <div class="flex-container-right">
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <h2 class="text-center mb-4">PSP Bar Chart</h2>
+                                <div class="form-group">
+                                    <label for="yearCheckbox">Select Year:</label>
+                                    <select id="yearCheckbox" class="form-control" onchange="updateChart()">
+                                        {% for year in years %}
+                                            <option value="{{ year }}">{{ year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div style="width: 400px; height: 300px;"> 
+                                    <canvas id="myChart" width="400" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+
+    <script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart;
+
+function updateChart() {
+    var selectedYear = document.getElementById('yearCheckbox').value;
+
+    fetch('/ins', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'selected_year=' + selectedYear,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (myChart) {
+            myChart.destroy();  // Destroy previous chart instance
+        }
+
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: data.datasets,
+                
+            },
+            options: {
+                responsive: false, // Disable automatic resizing
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    }],
+                },
+            },
+        });
+    });
+}
+
+updateChart();
+
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,613 @@
+<!-- results.html -->
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>Results</title>
+        <link rel="stylesheet" href="../static/style.css">
+    </head>
+
+    <body id = cen>
+        <div   class="flex-container-left">
+        {% for row in processed_data %}
+        <table border="1">
+            
+            <tbody>
+                {% for label, value in row["basic_info"].items() %}
+                    <tr>
+                        <td>{{ label }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br/><br>
+        {% endfor %}
+    </div>
+
+        
+    </body>
+    </html> -->
+    
+
+
+
+
+    <!-- finall - before -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .flex-container {
+            flex: 1;
+            display: flex;
+        }
+
+        .flex-container-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column; /* Ensure vertical alignment */
+            background: linear-gradient(to right, pink 0%, pink 50%);
+            padding: 20px;
+            overflow-y: auto; /* Enable scrolling if content overflows */
+        }
+
+        .flex-container-right {
+            flex: 1;
+            background: paleturquoise; /* Set background color for the right side */
+            padding: 20px;
+            overflow-y: auto; /* Enable scrolling if content overflows */
+        }
+
+        table {
+            border: 1px solid #000; /* Border styling for the table */
+            margin-bottom: 20px; /* Add space between tables */
+        }
+
+        td {
+            padding: 5px; /* Adjust padding for cell content */
+        }
+    </style>
+</head>
+<body id="cen">
+    <div class="flex-container">
+        <div class="flex-container-left">
+            {% for row in processed_data %}
+                <table>
+                    <tbody>
+                        {% for label, value in row["basic_info"].items() %}
+                            <tr>
+                                <td>{{ label }}</td>
+                                <td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
+        <div class="flex-container-right">
+            <p>This is the content on the right side. You can put your paragraphs or other content here.</p>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .flex-container {
+            flex: 1;
+            display: flex;
+        }
+
+        .flex-container-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        
+
+        .table td, .table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-container-left">
+
+            {% for row in processed_data %}
+                <div class="card">
+                    <table class="table">
+                        <tbody>
+                            {% for label, value in row["basic_info"].items() %}
+                                <tr>
+                                    <td>{{ label }}</td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+            <div class="button-container">
+                <form action="{{ url_for('viz') }}" method="get">
+                    <button type="submit" class="button">Go to Viz Page</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .flex-container {
+            flex: 1;
+            display: flex;
+        }
+
+        .flex-container-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table td, .table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            align-self: flex-start; /* Align the button container to the start of the flex container */
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-container-left">
+
+            {% for row in processed_data %}
+                <div class="card">
+                    <table class="table">
+                        <tbody>
+                            {% for label, value in row["basic_info"].items() %}
+                                <tr>
+                                    <td>{{ label }}</td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+            <div class="button-container">
+                <form action="{{ url_for('viz') }}" method="get">
+                    <button type="submit" class="button">Go to Viz Page</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    
+<!--
+# =============================================================================
+#                      DON'T TOUCH THE CODE BELOW
+# =============================================================================
+-->
+
+<!--
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    {% for row in processed_data %}
+    <table border="1">
+        
+        <tbody>
+            {% for label, value in row['labels_and_values'].items() %}
+                <tr>
+                    <td>{{ label }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>Prediction</td>
+                {% for label, value in row.items() if label != 'labels_and_values' %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <br/><br>
+    {% endfor %}
+
+    
+    
+</body>
+</html>
+    
+-->
+
+<!-- =========================================================== -->
+<!--                    DON'T TOUCH THE NEW UPDATED CODE         -->
+<!-- =========================================================== -->
+<!-- 
+
+    <!DOCTYPE html>
+<html>
+    <head>
+        <title>Results</title>
+    </head>
+
+    <body>
+        {% for row in processed_data %}
+        <table border="1">
+            
+            <tbody>
+                {% for label, value in row["basic_info"].items() %}
+                    <tr>
+                        <td>{{ label }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br/><br>
+        {% endfor %}
+        
+        {% for row in processed_data %}
+        <tr>
+            <td>{{ row["basic_info"] }}</td>
+        </tr>
+        {% endfor %}
+        
+    </body>
+    </html>
+
+-->
+
+
+
+
+<!-- 
+    FINAL CODE STEP 1    
+ -->
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        table {
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        .flex-container {
+            flex: 1;
+            display: flex;
+        }
+
+        .flex-container-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to right, pink 0%, pink 50%);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .flex-container-right {
+            flex: 1;
+            background: paleturquoise;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chart-container {
+            width: 400px;
+            height: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body id="cen">
+    <div class="flex-container">
+        <div class="flex-container-left">
+
+            {% for row in processed_data %}
+                <table>
+                    <tbody>
+                        {% for label, value in row["basic_info"].items() %}
+                            <tr>
+                                <td>{{ label }}</td>
+                                <td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+            <form action="{{ url_for('viz') }}" method="get">
+                <input type="submit" value="Go to Viz Page">
+            </form>
+            
+        </div>
+
+        
+</body>
+</html>
+
+
+ -->
